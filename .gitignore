@@ -1,6 +1,12 @@
 # Visual Studio 2015 user specific files
 .vs/
 
+# Visual Studio Code user specific files
+.vscode/
+
+# Rider user specific files
+.idea/
+
 # Compiled Object files
 *.slo
 *.lo
@@ -40,7 +46,6 @@
 *.sdf
 *.VC.db
 *.VC.opendb
-.vsconfig
 
 # Precompiled Assets
 SourceArt/**/*.png
@@ -73,3 +78,8 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# MAC OS generated files
+.DS_Store
+Content/TBOProject/Maps/Shipping/L_Play.umap
+Content/TBOProject/Maps/Shipping/L_Play.umap
