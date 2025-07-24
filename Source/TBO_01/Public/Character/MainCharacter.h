@@ -77,6 +77,21 @@ public:
 	 */
 	UFUNCTION()
 	void SetRotationRateOfDevice(EHardwareDevicePrimaryType DeviceType);
+
+	/**
+	 * Ledge grab detection logic
+	 * @param VerticalTraceUpwardOffset Vertical trace upward offset from actor location
+	 * @param VerticalTraceForwardOffset Vertical trace forward offset from actor location
+	 * @param VerticalTraceLength Vertical trace length
+	 * @param VerticalTraceRadius Vertical trace radius
+	 * @param HorizontalTraceUpwardOffset Horizontal trace upward offset from actor location
+	 * @param HorizontalTraceLength Horizontal trace length
+	 * @param HorizontalTraceRadius Horizontal trace radius
+	 * @param PelvisFromLedgeMaxOffset max offset between pelvis bone and the edge of the target surface to grab
+	 * @param HorizontalHitResult Out horizontal hit result
+	 * @param VerticalHitResult Out Vertical hit result
+	 * @return true if ledge grab is possible, false otherwise
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Ledge Grab Detection")
 	bool CanLedgeGrab(float VerticalTraceUpwardOffset, float VerticalTraceForwardOffset, float VerticalTraceLength, float VerticalTraceRadius, float HorizontalTraceUpwardOffset, float HorizontalTraceLength, float HorizontalTraceRadius, float PelvisFromLedgeMaxOffset, FHitResult& HorizontalHitResult, FHitResult& VerticalHitResult);
 	UFUNCTION(BlueprintCallable, Category = "Interaction")

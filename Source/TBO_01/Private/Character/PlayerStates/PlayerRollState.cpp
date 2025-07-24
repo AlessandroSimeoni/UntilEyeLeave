@@ -58,7 +58,8 @@ void UPlayerRollState::TickState(float DeltaTime)
 	
 	if (!IsUnderObject)
 		return;
-	
+
+	// check if there is an obstacle in front of the player while under an object 
 	if (!FrontWallObstacle)
 	{
 		FrontWallObstacle = GetWorld()->SweepSingleByChannel(HitResult,
@@ -70,6 +71,7 @@ void UPlayerRollState::TickState(float DeltaTime)
 														CollisionParams);
 	}
 
+	// calculate the escape direction (FrontWallCrossResult) to avoid getting stuck under the object
 	if (FrontWallObstacle && FrontWallCrossResult == FVector::ZeroVector)
 	{
 		FrontWallCrossResult = FVector::CrossProduct(FVector::UpVector,HitResult.Normal);
@@ -85,6 +87,7 @@ void UPlayerRollState::TickState(float DeltaTime)
 		FrontWallCrossResult = Rotation.RotateVector(FrontWallCrossResult);
 	}
 
+	// move the player while under an object
 	MainCharacter->SetActorLocation(MainCharacter->GetActorLocation() + (FrontWallObstacle ? FrontWallCrossResult : MainCharacter->GetActorForwardVector()) * SlideSpeedUnderObjects * DeltaTime);
 	TryEndRolling();
 }
@@ -99,7 +102,7 @@ void UPlayerRollState::ExitState()
 		TM.SetTimer(RollCooldownTimer, this, &ThisClass::EnableRoll, RollCooldown, false);
 	}
 
-	// this is to avoid ground compenetrations
+	// this is to avoid ground interpenetration 
 	if (!MainCharacter->MovementComponent->IsFalling())
 		MainCharacter->SetActorLocation(MainCharacter->GetActorLocation() + FVector::UpVector*RollCapsuleHalfHeight);
 

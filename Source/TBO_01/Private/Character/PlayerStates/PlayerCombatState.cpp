@@ -5,7 +5,6 @@
 
 #include "AbilitySystemComponent.h"
 #include "Abilities/GameplayAbilityTypes.h"
-#include "Character/CharacterAnimInstance.h"
 #include "Character/CharacterController.h"
 #include "Character/MainCharacter.h"
 #include "TimerManager.h"
@@ -91,6 +90,7 @@ void UPlayerCombatState::TickState(float DeltaTime)
 void UPlayerCombatState::ExitState()
 {
 	Super::ExitState();
+	
 	//Reset hit bool
 	IsHitSuccess = IsDeflect = false;
 
@@ -111,16 +111,6 @@ void UPlayerCombatState::ExitState()
 	
 	//cooldown removed
 	StateReady = true;
-	
-	/*
-	if (AttackDelay == 0 && !StateController->PreviousState->IsA(UPlayerMidAirState::StaticClass()))
-		StateReady = true;
-	else
-	{
-		StateReady = false;
-		//TM->SetTimer(AttackCooldownTimer, this, &ThisClass::SetAttackReady, AttackDelay, false);
-	}
-	*/
 }
 
 void UPlayerCombatState::SetAttackReady()
@@ -144,57 +134,6 @@ void UPlayerCombatState::EndAttack() const
 	else
 		StateTransition(IdleState);
 }
-//old
-/*
-void UPlayerCombatState::CastHitBox() const
-{
-	TArray<FHitResult> HitResults;
-	FCollisionShape Sphere = FCollisionShape::MakeSphere(HitBoxRadius);
-	FVector HitBoxLocation = MainCharacter->GetActorLocation() +
-							 MainCharacter->GetActorForwardVector() * HitBoxOffsetFromPlayer.X +
-							 MainCharacter->GetActorUpVector() * HitBoxOffsetFromPlayer.Z +
-							 MainCharacter->GetActorRightVector() * HitBoxOffsetFromPlayer.Y;
-
-	bool Hit = GetWorld()->SweepMultiByChannel(
-	   HitResults, 
-	   HitBoxLocation, 
-	   HitBoxLocation, 
-	   FQuat::Identity, 
-	   ECC_Visibility, 
-	   Sphere
-   );
-
-	if (DebugHitBox)
-		DrawDebugSphere(GetWorld(), HitBoxLocation, HitBoxRadius, 12, FColor::Red, false, 2.0f);
-
-	if (Hit)
-	{
-	
-		for (const FHitResult& TargetHit : HitResults)
-		{
-			UPrimitiveComponent* Target = TargetHit.GetComponent();
-			if (Target->Implements<UHittableActor>())
-			{
-				TScriptInterface<IHittableActor> HittableInstance = Target;
-				UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *Target->GetName());
-				HittableInstance->Execute_Hit(Target, MainCharacter->CurrentWeaponLevel, AttackDamage,
-				                              MainCharacter);
-			}
-			else
-			{
-				USceneComponent* ParentComponent = Target->GetAttachParent();
-				if (ParentComponent && ParentComponent->Implements<UHittableActor>())
-				{
-					TScriptInterface<IHittableActor> HittableInstance = ParentComponent;
-					UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *ParentComponent->GetName());
-					HittableInstance->Execute_Hit(ParentComponent, MainCharacter->CurrentWeaponLevel, AttackDamage,
-					                              MainCharacter);
-				}
-			}
-		}
-	}
-}
-*/
 
 void UPlayerCombatState::HandleMidAirMovement(FVector MovementDirection)
 {

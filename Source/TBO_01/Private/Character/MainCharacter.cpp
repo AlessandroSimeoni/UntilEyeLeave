@@ -13,12 +13,9 @@
 #include "Character/GAS/PlayerAttributeSet.h"
 #include "SceneComponent/DamageFlash.h"
 
-
-// Sets default values
 AMainCharacter::AMainCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	PrimaryActorTick.bCanEverTick = true;
 
 	StateControllerComponent = CreateDefaultSubobject<UStateController>("StateController");
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
@@ -111,7 +108,6 @@ bool AMainCharacter::CanLedgeGrab(float VerticalTraceUpwardOffset, float Vertica
 
 	if (DebugRays)
 		DrawDebugCylinder(GetWorld(), TraceStartPosition, TraceEndPosition, HorizontalTraceRadius, 12, FColor::Green, false, 0.05f);
-		//DrawDebugLine(GetWorld(), TraceStartPosition, TraceEndPosition, FColor::Green, false, 0.05f, 0, 2.0f);
 
 	// first the horizontal trace
 	if (GetWorld()->SweepSingleByChannel(HitResult, TraceStartPosition, TraceEndPosition,FQuat::Identity, ECC_Visibility, FCollisionShape::MakeSphere(HorizontalTraceRadius), CollisionParams))
@@ -126,7 +122,6 @@ bool AMainCharacter::CanLedgeGrab(float VerticalTraceUpwardOffset, float Vertica
 		{
 			DrawDebugCylinder(GetWorld(), TraceStartPosition, TraceEndPosition, VerticalTraceRadius, 12, FColor::Green, false, 0.05f);
 			DrawDebugPoint(GetWorld(), HitResult.ImpactPoint, 15.0f, FColor::Red, false, 1.0f);
-			//DrawDebugLine(GetWorld(), TraceStartPosition, TraceEndPosition, FColor::Green, false, 0.05f, 0, 2.0f);
 		}
 
 		if (HitResult.GetActor() && !HitResult.GetActor()->ActorHasTag(LedgeGrabTag))
@@ -262,7 +257,7 @@ void AMainCharacter::GiveDefaultAbility()
 
 	for (TSubclassOf<UGameplayAbility> AbilityClass : DefaultAbility)
 	{
-		//Create a rappresentation of the ability
+		//Create a representation of the ability
 		const FGameplayAbilitySpec AbilitySpec(AbilityClass);
 		AbilitySystemComponent->GiveAbility(AbilitySpec);
 	}

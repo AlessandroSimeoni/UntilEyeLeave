@@ -33,6 +33,8 @@ void ACharacterController::SetupInputComponent()
 	enhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, this, &ThisClass::HandlePauseAction);
 
 	// Bind to handle input device change
+	// (When I wrote this, I didn't know there was the OnInputMethodChangedNative of the UCommonInputSubsystem, so I made one custom
+	// but due to time constraints I never changed it)
 	enhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::HandleInputDeviceChange);
 	enhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &ThisClass::HandleInputDeviceChange);
 	enhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ThisClass::HandleInputDeviceChange);

@@ -20,7 +20,9 @@ AActuatorActor::AActuatorActor()
 void AActuatorActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	// check game save and restore state if the UniqueID is present.
+	// This also restores the state of the actionable actors connected by calling the ActionActors method 
 	SaveSubsystem = GetGameInstance()->GetSubsystem<USaveSubsystem>();
 	UTBOSaveGame* TBOSaveGame = SaveSubsystem->LoadGame();
 	if (TBOSaveGame->FindInteractedActor(UniqueIDComp->UniqueID))
@@ -43,13 +45,15 @@ bool AActuatorActor::HasBeenActivated_Implementation()
 
 void AActuatorActor::ActionActors(const bool InstantActivation)
 {
+	// loop the actionable actors and request the activation
 	for (const TObjectPtr<AActionableActor> Actionable : ConnectedActionableActor)
 		if (Actionable)
 		{
 			Actionable->RequestActivation(InstantActivation);
 			UE_LOG(LogTemp, Warning, TEXT("Action Actors"));
 		}
-	
+
+	// add the Unique ID to the game save
 	UTBOSaveGame* TBOSaveGame = SaveSubsystem->LoadGame();
 	TBOSaveGame->AddInteractedActor(UniqueIDComp->UniqueID);
 
@@ -58,10 +62,12 @@ void AActuatorActor::ActionActors(const bool InstantActivation)
 
 void AActuatorActor::DeActivateActors(const bool InstantDeActivation)
 {
+	// loop the actionable actors and request the de-activation
 	for (const TObjectPtr<AActionableActor> Actionable : ConnectedActionableActor)
 		if (Actionable)
 			Actionable->RequestDeActivation(InstantDeActivation);
 
+	// remove the Unique ID from the game save
 	UTBOSaveGame* TBOSaveGame = SaveSubsystem->LoadGame();
 	TBOSaveGame->RemoveInteractedActor(UniqueIDComp->UniqueID);
 	

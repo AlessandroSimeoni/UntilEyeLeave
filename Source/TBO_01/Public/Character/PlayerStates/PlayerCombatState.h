@@ -46,10 +46,6 @@ public:
 	void StartTimeDilation();
 
 protected:
-	/*
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat Animation")
-	TObjectPtr<UAnimMontage> CombatAnimMontage;
-	 */
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Connected States")
 	TSubclassOf<UPlayerStateBase> IdleStateClass;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Connected States")
@@ -64,18 +60,6 @@ protected:
 	float MidAirControlWeight = 1.0f;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|Settings", Meta = (UIMin = 0.0f, ClampMin = 0.0f))
 	float AnimationPlayRate = 1.0f;
-/*
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|Settings", Meta = (UIMin = 0.0f, ClampMin = 0.0f))
-	float AttackDelay = 1.0f;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|Settings", Meta = (UIMin = 0.0f, ClampMin = 0.0f))
-	float AttackDamage = 1.0f;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|Hit detection", Meta = (UIMin = 0.0f, ClampMin = 0.0f))
-	float HitBoxRadius = 10.0f;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|Hit detection")
-	FVector HitBoxOffsetFromPlayer = FVector::Zero();
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|Hit detection")
-	bool DebugHitBox = false;
- */
 
 	/**Hitstop*/
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Combat|HitStop")
@@ -119,10 +103,6 @@ protected:
 	void StartAttack();
 	UFUNCTION(BlueprintCallable, Category = "Attack Function")
 	void EndAttack() const;
-	/*
-	UFUNCTION(BlueprintCallable, Category = "Attack Function")
-	void CastHitBox() const;
-	 */
 	UFUNCTION()
 	virtual void HandleMidAirMovement(FVector MovementDirection);
 	UFUNCTION()
@@ -142,5 +122,4 @@ protected:
 
 	bool CanRotate = true;
 	float CharacterMaxSpeed  = 0.0f;;
-	
 };
