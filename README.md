@@ -1,5 +1,5 @@
 # Until Eye Leave
-![test](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/UntilEyeLeave_PromoArt.png)  
+![Until Eye Leave Promo Art](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/UntilEyeLeave_PromoArt.png)  
 
 Venture in an unknown world to find your way home, beware of the strange creatures that populate this place and learn how to walk among them to solve puzzles.
 
