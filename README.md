@@ -89,50 +89,67 @@ The FSM is composed of *PlayerStateBase* states which derive from the [StateBase
 The main difference is that it has references to the *MainCharacter*, the *CharacterController* and the *CharacterAnimInstance*.  
 
 There are a total of 10 scripts for the states:
-* **PlayerIdleState**
-* **PlayerStandardMoveState**
-* **PlayerSlowMoveState**
-* **PlayerMidAirState**
-* **PlayerLedgeFallingState**
-* **PlayerJumpState**
-* **PlayerLedgeGrabState**
-* **PlayerRollState**
-* **PlayerKnockbackState**
-* **PlayerCombatState**
+* [**PlayerIdleState**](#Idle-State)
+* [**PlayerStandardMoveState**](#Standard-Move-State)
+* [**PlayerSlowMoveState**](#Slow-Move-State)
+* [**PlayerMidAirState**](#Mid-Air-State)
+* [**PlayerLedgeFallingState**](#Ledge-Falling-State)
+* [**PlayerJumpState**](#Jump-State)
+* [**PlayerLedgeGrabState**](#Ledge-Grab-State)
+* [**PlayerRollState**](#Roll-State)
+* [**PlayerKnockbackState**](#Knockback-State)
+* [**PlayerCombatState**](#Combat-State)
 
 Each state has references to the states they are directly connected to. These references are initialized in the *InitState* method.  
 As a general rule the *EnterState/ExitState* method is used to subscribe/unsubscribe to the events of the *MainCharacter* and/or the *CharacterController* so that they know how to behave and towards which state call the transition.  
 Let's take a quick look at them anyway.  
 
+
+<a name="Idle-State"></a>
 ### 2.3 Idle State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerIdleState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerIdleState.cpp).  
 Pretty simple, the character is in idle animation and the state is listening for the events of movement, attack, jump, roll or knockback if the player is hit by something.
 
+<a name="Standard-Move-State"></a>
 ### 2.4 Standard Move State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerStandardMoveState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerStandardMoveState.cpp).  
 The character moves at a specified speed based on the input direction.  
 The character rotates with a rotation rate which is based on the device in use (faster control with a gamepad, slower one with the keyboard).  
 There is also a logic that handles an abrupt change in the direction (ie: the character is running left but suddenly the user presses the right input direction); in this case the player rotates towards the direction and stops for a brief moment before moving again.  
 All this is done in the *AddMovementDirection* method.
 In the *TickState* method there are some checks to handle cases such as: falling, stop moving, slow movement or the ledge grab of low steps.
 
+<a name="Slow-Move-State"></a>
 ### 2.5 Slow Move State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerSlowMoveState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerSlowMoveState.cpp).  
 It’s the same as the standard one but has a different movement speed.
 
+<a name="Mid-Air-State"></a>
 ### 2.6 Mid Air State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerMidAirState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerMidAirState.cpp).  
 This is the base state for all the mid air states (jump and falling).  
 Pretty simple, it has checks to go in the roll, idle or ledge grab states; it also handles the mid air movement which is limited compared to the *StandardMoveState*.
 
+<a name="Ledge-Falling-State"></a>
 ### 2.7 Ledge Falling State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerLedgeFallingState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerLedgeFallingState.cpp).  
 A mid air state which handles the coyote time to simplify jumps from ledges.
 
+<a name="Jump-State"></a>
 ### 2.8 Jump State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerJumpState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerJumpState.cpp).  
 Makes the character jump based on the *Jump* method of Unreal.  
 Handles the forward and horizontal movement of the player separately.
 
+<a name="Ledge-Grab-State"></a>
 ### 2.9 Ledge Grab State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerLedgeGrabState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerLedgeGrabState.cpp).  
 Handles the ledge grab in air and on the ground.  
 The core logic is made in blueprint because it was faster to test it, but it can be easily replicated in C++.
 
+<a name="Roll-State"></a>
 ### 2.10 Roll State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerRollState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerRollState.cpp).  
 The player can roll and he can do it in the direction the user puts in input (instant rotation of the player when entering the state).  
 The roll can be interrupted with a jump.  
 There is a logic in the *TryEndRolling* method which handles the case where the player is under some object while rolling. This is done to avoid getting stuck in things.  
@@ -140,11 +157,15 @@ The logic is kinda simple, it casts a sphere above the player to know if there i
 There is also a logic that handles the case where it encounters a wall while rolling under an object.  
 The logic is not perfect since there are rare cases where the player can go out of map if the colliders are placed in a messy way.
 
+<a name="Knockback-State"></a>
 ### 2.11 Knockback State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerKnockbackState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerKnockbackState.cpp).  
 The knockback was made with GAS by a collegue.
 When entering this state the ability is activated from the blueprint version of this state.
 
+<a name="Combat-State"></a>
 ### 2.12 Combat State
+Scripts: [.h](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Public/Character/PlayerStates/PlayerCombatState.h)/[.cpp](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/Source/TBO_01/Private/Character/PlayerStates/PlayerCombatState.cpp).  
 Player can attack in mid air and on ground.
 The attack combo and animations were handled with GAS in blueprint by a collegue.
 The combat state can be interrupted with a roll.  
