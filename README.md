@@ -7,7 +7,7 @@ The player is a cat that is unfortunately passing on to a better life, we, as a 
 
 Until Eye Leave is a puzzle action-adventure vertical slice developed in Unreal Engine 5.4 for PC.
 
-This is the last, biggest and most important project of the academic studies.
+This is the last, biggest and most important project of my academic studies.
 It was developed during 6 months in a pretty big team of approximately 20 people (10 designers, 3 programmers, 4 concept artists and 3 3D artists).
 This project has allowed me to learn different features of Unreal Engine, organize the work among us programmers visualizing it in a Gantt view on github, create technical documentation of the code and communicate effectively between departments in a larger than usual team.  
 
