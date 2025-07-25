@@ -1,4 +1,6 @@
 # Until Eye Leave
+![test](https://github.com/AlessandroSimeoni/UntilEyeLeave/blob/main/UntilEyeLeave_PromoArt.png)  
+
 Venture in an unknown world to find your way home, beware of the strange creatures that populate this place and learn how to walk among them to solve puzzles.
 
 The player is a cat that is unfortunately passing on to a better life, we, as a player, experience her journey in the afterlife inside her conscience.
@@ -7,9 +9,10 @@ Until Eye Leave is a puzzle action-adventure vertical slice developed in Unreal 
 
 This is the last, biggest and most important project of the academic studies.
 It was developed during 6 months in a pretty big team of approximately 20 people (10 designers, 3 programmers, 4 concept artists and 3 3D artists).
-This project has allowed me to learn different features of Unreal Engine, organize the work among us programmers visualizing it in a Gantt view on github, create technical documentation of the code and communicate effectively between departments in a larger than usual team.
+This project has allowed me to learn different features of Unreal Engine, organize the work among us programmers visualizing it in a Gantt view on github, create technical documentation of the code and communicate effectively between departments in a larger than usual team.  
 
-### ***You can download the build [here](https://github.com/AlessandroSimeoni/UntilEyeLeave/releases/tag/ReleaseBuild).***
+### ***Watch the trailer [here](https://www.youtube.com/watch?v=eUA_2rIrMpU).***
+### ***Download the build [here](https://github.com/AlessandroSimeoni/UntilEyeLeave/releases/tag/ReleaseBuild).***
 
 <a name="What-I-did"></a>
 # What I did
